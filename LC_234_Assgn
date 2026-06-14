@@ -1,0 +1,41 @@
+class Solution {
+public:
+ListNode* reverseList(ListNode* head){
+    ListNode* previous= NULL;
+    ListNode* current= head;
+    while(current!= NULL){
+        ListNode* nextNode= current->next;
+
+        current->next= previous;
+        previous= current;
+        current= nextNode;
+    }
+    return previous;
+}
+
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL || head->next== NULL)
+        return true;
+
+        ListNode* tortoise= head;
+        ListNode* rabbit= head;
+
+        while(rabbit!=NULL && rabbit->next!=NULL){
+            tortoise= tortoise->next;
+            rabbit= rabbit->next->next;
+        }
+
+        ListNode* SecondHalf= reverseList(tortoise);
+
+        ListNode* firstHalf= head;
+
+        while(SecondHalf!= NULL){
+            if(firstHalf->val!=SecondHalf->val)
+            return false;
+
+            firstHalf= firstHalf->next;
+            SecondHalf= SecondHalf->next;
+        }
+        return true;
+    }
+};
